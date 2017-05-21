@@ -13,9 +13,9 @@ class UsersTableSeeder extends Seeder
     {
         //
     	DB::table('users')->insert([
-          'name' => env('INITIAL_ADMIN_NAME'),
-          'email' => env('INITIAL_ADMIN_EMAIL'),
-          'password' => bcrypt(env('INITIAL_ADMIN_PASSWORD')),
+          'name' => env('INITIAL_ADMIN_NAME', 'dummy'),
+          'email' => env('INITIAL_ADMIN_EMAIL', 'dummy@dummymail.com'),
+          'password' => bcrypt(env('INITIAL_ADMIN_PASSWORD', 'dummy')),
       ]);
     }
 }

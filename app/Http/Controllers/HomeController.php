@@ -50,7 +50,19 @@ class HomeController extends Controller
     {
         $repo = new \App\Legbon\Repositories\UserEloquentRepository();
         $id = \Auth::id();
-        $data = $req->all();
+        $data = $req->except('confirm_password');
+        
+        if($data['password'] != $req->get('confirm_password')) {
+            $req->session()->flash('admin_status', "Passwords don't match!");
+            return Redirect::back();
+        }
+
+        if(strlen($data['password']) < 8) {
+            $req->session()->flash('admin_status', "Password must have at least 8 characters.");
+            return Redirect::back();
+        }
+        
+        $data['password'] = bcrypt($data['password']);
 
         if($repo->update($id, $data)) {
             $req->session()->flash('admin_status', 'Account update successful!');

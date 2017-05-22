@@ -1,4 +1,4 @@
-<h3> Please update your account details: </h3>
+<h4> Edit details: </h4>
 <form id="updateAdmin" action="{{route('admin.update')}}" method="POST">
 	<div class="form-group">
 	  <label for="name">Name</label>
@@ -16,7 +16,7 @@
 
   <div class="form-group">
     <label for="password">Confirm Password</label>
-    <input type="password" class="form-control" id="confirm_password" placeholder="Password" required>
+    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Password" required>
   </div>
   
   <button type="submit" class="btn btn-default">Submit</button>
@@ -27,20 +27,5 @@
 
 @section('scripts')
 <script type="text/javascript">
-  $('#password, #confirm_password').on('keyup', function (e) {
-    var msg, color;
-    var p = $('#password').val();
-    var cp = $('#confirm_password').val();
-    if (p == cp) {
-      msg = '';
-      color = '';
-      if(p.length < 8) {
-        msg = 'Password must have 8 or more characters';
-      }
-    } else {
-      msg = 'Passwords must match';
-    }
-    e.target.setCustomValidity(msg);
-  });
 </script>
 @endsection

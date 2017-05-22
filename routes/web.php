@@ -12,6 +12,8 @@
 */
 
 Route::get('/', function () {
+		$a = \App\User::find(2);
+		return $a;
     return view('welcome');
 });
 
@@ -19,8 +21,15 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('/', function() {
 		return Redirect::route("home");
 	});
+
   Auth::routes();
+
+
 	Route::get('/home', 'HomeController@index')->name('home');
+
+	Route::get('/edit', 'HomeController@edit')->name('admin.edit');
+
+	Route::put('/home/', 'HomeController@update')->name('admin.update');
 });
 
 

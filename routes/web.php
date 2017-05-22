@@ -12,8 +12,6 @@
 */
 
 Route::get('/', function () {
-		$a = \App\User::find(2);
-		return $a;
     return view('welcome');
 });
 

@@ -52,6 +52,8 @@ class HomeController extends Controller
         $data = $req->except('confirm_password');
         $data['id'] = \Auth::id();
         
+        $repo->updateValidation($req->all());
+
         if($data['password'] != $req->get('confirm_password')) {
             $req->session()->flash('admin_status', "Passwords don't match!");
             return Redirect::back();

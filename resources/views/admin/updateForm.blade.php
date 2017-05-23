@@ -21,7 +21,7 @@
   
   <div class="form-group">
     <label for="password">Confirm Old Password</label>
-    <input type="password" class="form-control" id="old_password" name="oldfirm_password" placeholder="Old Password" required>
+    <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Old Password" required>
   </div>
   
   <button type="submit" class="btn btn-default">Submit</button>

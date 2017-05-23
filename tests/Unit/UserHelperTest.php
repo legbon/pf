@@ -41,7 +41,10 @@ class UserHelperTest extends TestCase
     {
         $uh = new UserHelper();
       	$password = str_random(random_int(config('site')['PASSWORD_MIN'], config('site')['PASSWORD_MAX']));
-      	$data = ['password' => $password, 'confirm_password' => $password];
+      	$data = ['password' => $password, 'confirm_password' => $password,
+      	'current_password' => \Hash::make($password),
+      	'old_password' => $password
+      	];
       	$expect = ['ok' => true, 'err' => 'UPDATE_OK'];
       	$this->assertEquals($expect, $uh->updateValidation($data));	
     }
@@ -56,7 +59,10 @@ class UserHelperTest extends TestCase
         $uh = new UserHelper();
       	$password = str_random(20);
       	$confirm = str_random(40);
-      	$data = ['password' => $password, 'confirm_password' => $confirm];
+      	$data = ['password' => $password, 'confirm_password' => $confirm,
+      	'current_password' => \Hash::make($password),
+      	'old_password' => $password
+      	];
       	$expect = ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
       	$this->assertEquals($expect, $uh->updateValidation($data));	
     }
@@ -114,8 +120,11 @@ class UserHelperTest extends TestCase
       $uh = new UserHelper();
     	$password = str_random(config('site')['PASSWORD_MAX'] + 2);
     	$confirm = str_random(40);
-    	$data = ['password' => $password, 'confirm_password' => $confirm];
-    	$expect = ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
+    	$data = ['password' => $password, 'confirm_password' => $confirm,
+    	 'current_password' => \Hash::make($password."x"),
+    	 'old_password' => $password."a"
+    	 ];
+    	$expect = ['ok' => false, 'err' => config('errors')['PASSWORD_INCORRECT']];
     	$this->assertEquals($expect, $uh->updateValidation($data));	
 
     }

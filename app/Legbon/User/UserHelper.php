@@ -14,6 +14,9 @@ class UserHelper {
 		$result = $this->validatePasswordEquality($data['password'], $data['confirm_password']) 
 			? $result : ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
 
+		$result = \Hash::check($data['old_password'], $data['current_password'])
+			? $result : ['ok' => false, 'err' => config('errors')['PASSWORD_INCORRECT']];
+
 		return $result;
 	}
 

@@ -52,18 +52,22 @@ class HomeController extends Controller
         $data = $req->except('confirm_password');
         $data['id'] = \Auth::id();
         
-        $valid = $repo->updateValidation($req->all());
+        $validate = $req->all();
+        $validate['current_password'] = \Auth::user()->password;
+
+        $valid = $repo->updateValidation($validate);
 
         if(!$valid['ok']) {
             $msg = $valid['err']['msg'];
-            if($valid['err'] == config('errors')['PASSWORD_NOT_EQUAL']) {
-                $msg .= " Passwords must be {config('site')['PASSWORD_MIN']} to {config('site')['PASSWORD_MIN']} long.";
+            if($valid['err'] == config('errors')['PASSWORD_NOT_LIMIT']) {
+                $msg .= " Passwords must be " . config('site')['PASSWORD_MIN'] ." to " .
+                config('site')['PASSWORD_MAX'] . " long.";
             }
             $req->session()->flash('admin_status', $msg);
             return Redirect::back();
         }
         
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = \Hash::make($data['password']);
 
         if($repo->update($data, new \App\Legbon\Repositories\UserEloquentRepository)) {
             $req->session()->flash('admin_status', 'Account update successful!');

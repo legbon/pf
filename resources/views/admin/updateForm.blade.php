@@ -10,13 +10,18 @@
   </div>
 
   <div class="form-group">
-    <label for="password">Password</label>
+    <label for="password">New Password</label>
     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
   </div>
 
   <div class="form-group">
-    <label for="password">Confirm Password</label>
+    <label for="password">Confirm New Password</label>
     <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Password" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="password">Confirm Old Password</label>
+    <input type="password" class="form-control" id="old_password" name="oldfirm_password" placeholder="Old Password" required>
   </div>
   
   <button type="submit" class="btn btn-default">Submit</button>

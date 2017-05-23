@@ -62,11 +62,6 @@ class HomeController extends Controller
             $req->session()->flash('admin_status', $msg);
             return Redirect::back();
         }
-
-        if(strlen($data['password']) < 8) {
-            $req->session()->flash('admin_status', "Password must have at least 8 characters.");
-            return Redirect::back();
-        }
         
         $data['password'] = bcrypt($data['password']);
 

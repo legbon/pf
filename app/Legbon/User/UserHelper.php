@@ -7,18 +7,30 @@ class UserHelper {
 
 	public function updateValidation($data) {
 		$result = ['ok' => true, 'err' => 'UPDATE_OK'];
-		$result = $this->passwordEquality($data['password'], $data['confirm_password']) 
+
+		$result = $this->validatePasswordLimit($data['password']) 
+			? $result : ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_LIMIT']];
+
+		$result = $this->validatePasswordEquality($data['password'], $data['confirm_password']) 
 			? $result : ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
+
 		return $result;
 	}
 
-	public function passwordEquality($password, $confirm) {
+	public function validatePasswordEquality($password, $confirm) {
 		if($password != $confirm) {
 		    return false;
 		}
 		return true;
 	}
 
+	public function validatePasswordLimit($password) {
+		if( (strlen($password) < config("site")['PASSWORD_MIN']) || 
+			( strlen($password) > config("site")['PASSWORD_MAX']) ) {
+			return false;
+		}
+		return true;
+	}
 
 }
 

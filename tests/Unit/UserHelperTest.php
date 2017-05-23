@@ -17,7 +17,7 @@ class UserHelperTest extends TestCase
     public function testPasswordsNotMatch()
     {
         $uh = new UserHelper();
-        $this->assertFalse($uh->passwordEquality(str_random(10), random_int(0,100)));	
+        $this->assertFalse($uh->passwordEquality(bcrypt(str_random(10)), bcrypt(random_int(0,100))));	
     }
 
      /**
@@ -28,7 +28,7 @@ class UserHelperTest extends TestCase
     public function testPasswordsMatch()
     {
         $uh = new UserHelper();
-      	$password = str_random(20);
+      	$password = bcrypt(str_random(20));
       	$this->assertTrue($uh->passwordEquality($password, $password));	
     }
 
@@ -40,7 +40,7 @@ class UserHelperTest extends TestCase
     public function testUpdateValidationMatchingPassword()
     {
         $uh = new UserHelper();
-      	$password = str_random(20);
+      	$password = bcrypt(str_random(20));
       	$data = ['password' => $password, 'confirm_password' => $password];
       	$expect = ['ok' => true, 'msg' => 'UPDATE_OK'];
       	$this->assertEquals($expect, $uh->updateValidation($data));	
@@ -54,8 +54,8 @@ class UserHelperTest extends TestCase
     public function testUpdateValidationNotMatchingPassword()
     {
         $uh = new UserHelper();
-      	$password = str_random(20);
-      	$confirm = str_random(40);
+      	$password = bcrypt(str_random(20));
+      	$confirm = bcrypt(str_random(40));
       	$data = ['password' => $password, 'confirm_password' => $confirm];
       	$expect = ['ok' => false, 'msg' => 'PASSWORD_NOT_EQUAL'];
       	$this->assertEquals($expect, $uh->updateValidation($data));	

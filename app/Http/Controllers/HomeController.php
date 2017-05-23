@@ -52,10 +52,14 @@ class HomeController extends Controller
         $data = $req->except('confirm_password');
         $data['id'] = \Auth::id();
         
-        $repo->updateValidation($req->all());
+        $valid = $repo->updateValidation($req->all());
 
-        if($data['password'] != $req->get('confirm_password')) {
-            $req->session()->flash('admin_status', "Passwords don't match!");
+        if(!$valid['ok']) {
+            $msg = $valid['err']['msg'];
+            if($valid['err'] == config('errors')['PASSWORD_NOT_EQUAL']) {
+                $msg .= " Passwords must be {config('site')['PASSWORD_MIN']} to {config('site')['PASSWORD_MIN']} long.";
+            }
+            $req->session()->flash('admin_status', $msg);
             return Redirect::back();
         }
 

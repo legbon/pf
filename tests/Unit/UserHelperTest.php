@@ -42,7 +42,7 @@ class UserHelperTest extends TestCase
         $uh = new UserHelper();
       	$password = bcrypt(str_random(20));
       	$data = ['password' => $password, 'confirm_password' => $password];
-      	$expect = ['ok' => true, 'msg' => 'UPDATE_OK'];
+      	$expect = ['ok' => true, 'err' => 'UPDATE_OK'];
       	$this->assertEquals($expect, $uh->updateValidation($data));	
     }
 
@@ -57,7 +57,7 @@ class UserHelperTest extends TestCase
       	$password = bcrypt(str_random(20));
       	$confirm = bcrypt(str_random(40));
       	$data = ['password' => $password, 'confirm_password' => $confirm];
-      	$expect = ['ok' => false, 'msg' => 'PASSWORD_NOT_EQUAL'];
+      	$expect = ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
       	$this->assertEquals($expect, $uh->updateValidation($data));	
     }
 }

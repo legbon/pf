@@ -6,9 +6,9 @@ class UserHelper {
 	}
 
 	public function updateValidation($data) {
-		$result = ['ok' => true, 'msg' => 'UPDATE_OK'];
+		$result = ['ok' => true, 'err' => 'UPDATE_OK'];
 		$result = $this->passwordEquality($data['password'], $data['confirm_password']) 
-			? $result : ['ok' => false, 'msg' => 'PASSWORD_NOT_EQUAL'];
+			? $result : ['ok' => false, 'err' => config('errors')['PASSWORD_NOT_EQUAL']];
 		return $result;
 	}
 
@@ -18,6 +18,7 @@ class UserHelper {
 		}
 		return true;
 	}
+
 
 }
 

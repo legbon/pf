@@ -8,8 +8,8 @@ use App\User;
  * 
  */
 class UserEloquentRepository implements \App\Legbon\User\UserRepositoryInterface {
-	public function update($id, $data) {
-		$user = User::find($id);
+	public function update($data) {
+		$user = User::find($data['id']);
 		if(!$user) {
 			return false;
 		}

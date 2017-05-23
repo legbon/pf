@@ -48,9 +48,9 @@ class HomeController extends Controller
      */
     public function update(Request $req)
     {
-        $repo = new \App\Legbon\Repositories\UserEloquentRepository();
-        $id = \Auth::id();
+        $repo = new \App\Legbon\User\UserHelper();
         $data = $req->except('confirm_password');
+        $data['id'] = \Auth::id();
         
         if($data['password'] != $req->get('confirm_password')) {
             $req->session()->flash('admin_status', "Passwords don't match!");
@@ -64,7 +64,7 @@ class HomeController extends Controller
         
         $data['password'] = bcrypt($data['password']);
 
-        if($repo->update($id, $data)) {
+        if($repo->update($data, new \App\Legbon\Repositories\UserEloquentRepository)) {
             $req->session()->flash('admin_status', 'Account update successful!');
         } else {
             $req->session()->flash('admin_status', 'Account update failed!');

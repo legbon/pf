@@ -6,5 +6,5 @@
  * I have no idea if I did this right but it works.
  */
 interface UserRepositoryInterface {
-	public function update($id, $data);
+	public function update($data);
 }

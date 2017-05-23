@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('projects', 'ProjectController');
+
 Route::group(['prefix' => 'admin'], function () {
 	Route::get('/', function() {
 		return Redirect::route("home");

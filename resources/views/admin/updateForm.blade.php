@@ -2,11 +2,11 @@
 <form id="updateAdmin" action="{{route('admin.update')}}" method="POST">
 	<div class="form-group">
 	  <label for="name">Name</label>
-	  <input type="text" class="form-control" id="name" name="name" placeholder="{{$user->name}}" required>
+	  <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
 	</div>
   <div class="form-group">
     <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="{{$user->email}}" required>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
   </div>
 
   <div class="form-group">

@@ -15,13 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['prefix' => 'admin'], function () {
+	
 	Route::get('/', function() {
 		return Redirect::route("home");
 	});
 
   Auth::routes();
 
+	Route::resource('projects', 'ProjectController', ['except' => [
+    'show'
+	]]);
+  Route::get('projects/{slug}', 'ProjectController@show')->name('projects.show');
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

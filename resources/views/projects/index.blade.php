@@ -20,7 +20,7 @@
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Links</th>
-                                    <th>Created</th>
+                                    <th>Began/Ended</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -29,7 +29,7 @@
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Links</th>
-                                    <th>Created</th>
+                                    <th>Began/Ended</th>
                                     <th>Options</th>
                                 </tr>
                             </tfoot>
@@ -39,7 +39,7 @@
                                     <td>{{$p->title}}</td>
                                     <td>{{str_limit($p->description, 40)}}</td>
                                     <td>[<a href="{{$p->source_url}}">S</a>][<a href="{{$p->live_url}}">L</a>]</td>
-                                    <td>{{$p->created_at->toFormattedDateString()}}</td>
+                                    <td>{{$p->began->toFormattedDateString()}} - {{$p->ended->toFormattedDateString()}}</td>
                                     <td>
                                         <form id="delete" action="{{route('projects.destroy', ['id' => $p->id])}}" method="POST">
                                             <a href="{{route('projects.edit', ['id' => $p->id])}}">Edit</a>

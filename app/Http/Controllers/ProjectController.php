@@ -55,6 +55,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //
+        
         $data = $request->all();
         $data['user_id'] = \Auth::id();
         $helper = new ProjectHelper();
@@ -96,7 +97,19 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
-        return view('projects.edit', ['project' => $project]);
+
+        if(null === $project->began) {
+            $began = '';
+        } else {
+            $began = $project->began->format('m/d/Y');
+        }
+        if(null === $project->ended) {
+            $ended = '';
+        } else {
+            $ended = $project->ended->format('m/d/Y');
+        }
+        //$project->ended = $project->ended ? $project->ended->format('m/d/Y') : '';
+        return view('projects.edit', ['project' => $project, 'began' => $began, 'ended' => $ended]);
     }
 
     /**

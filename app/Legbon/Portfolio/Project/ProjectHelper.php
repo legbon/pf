@@ -8,6 +8,8 @@ class ProjectHelper {
 	public function processProject($data) {
 		$project = $data;
 		$project['slug'] = $this->generateSlug($project['title']);
+		$project['began'] = $this->convertToDateTime($project['began']);
+		$project['ended'] = $this->convertToDateTime($project['ended']);
 		return $project;
 	}
 
@@ -29,6 +31,13 @@ class ProjectHelper {
 
 	public function delete($id, \App\Legbon\Portfolio\Project\ProjectRepositoryInterface $repo) {
 		return $repo->delete($id);
+	}
+
+	public function convertToDateTime($dateString) {
+		if($dateString == '') {
+			return null;
+		}
+		return \Carbon\Carbon::createFromFormat('m/d/Y', $dateString);
 	}
 }
 

@@ -8,4 +8,8 @@ class Project extends Model
 {
     //
 		protected $guarded = [];
+		protected $dates = [
+        'began',
+        'ended'
+    ];
 }

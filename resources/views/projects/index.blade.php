@@ -17,6 +17,7 @@
                     <table id="projects" class="table table-striped table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Links</th>
@@ -26,6 +27,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Links</th>
@@ -36,10 +38,13 @@
                             <tbody>
                             @foreach($projects as $p)
                                 <tr>
+                                    <td><a href="{{$p->image_url}}">
+                                        <img src="{{$p->image_url}}" class="img img-thumbnail" />
+                                    </a></td>
                                     <td>{{$p->title}}</td>
                                     <td>{{str_limit($p->description, 40)}}</td>
                                     <td>[<a href="{{$p->source_url}}">S</a>][<a href="{{$p->live_url}}">L</a>]</td>
-                                    <td>{{$p->began->toFormattedDateString()}} - {{$p->ended->toFormattedDateString()}}</td>
+                                    <td>{{$p->began ? $p->began->toFormattedDateString() : 'None Set'}} - {{$p->ended ? $p->ended->toFormattedDateString() : 'None Set'}}</td>
                                     <td>
                                         <form id="delete" action="{{route('projects.destroy', ['id' => $p->id])}}" method="POST">
                                             <a href="{{route('projects.edit', ['id' => $p->id])}}">Edit</a>

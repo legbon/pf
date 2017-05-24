@@ -23,7 +23,17 @@
     <label for="name">Source URL</label>
     <input type="url" class="form-control" id="name" name="source_url" placeholder="{{$project->source_url}}" value="{{$project->source_url}}">
   </div>
+  <div class="form-group">
+    <label for="image_url">Image URL</label>
+    <input type="url" class="form-control" id="image_url" name="image_url" placeholder="http://www.google.com/image.png" value="{{$project->image_url}}" />
 
+    @if($project->image_url)
+      <img src="{{$project->image_url}}" class="img" />
+    @endif
+
+  </div>
+
+  
 
   <div class="form-group">
     <label for="began">Project Begin Date</label>

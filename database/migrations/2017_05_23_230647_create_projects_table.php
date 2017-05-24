@@ -24,7 +24,8 @@ class CreateProjectsTable extends Migration
             $table->string('live_url')->nullable();
             $table->string('source_url')->nullable();
 
-
+            $table->string('image_url')->nullable();
+            // Temporary image URL, to be replaced by Album/Image set.
 
             $table->boolean('deleted')->default(false);
 

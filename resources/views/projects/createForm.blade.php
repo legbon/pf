@@ -18,9 +18,15 @@
     <label for="live_url">Live URL</label>
     <input type="url" class="form-control" id="live_url" name="live_url" placeholder="http://www.google.com">
   </div>
+
   <div class="form-group">
     <label for="source_url">Source URL</label>
     <input type="url" class="form-control" id="source_url" name="source_url" placeholder="http://www.github.com">
+  </div>
+
+  <div class="form-group">
+    <label for="image_url">Image URL</label>
+    <input type="url" class="form-control" id="image_url" name="image_url" placeholder="http://www.google.com/image.png">
   </div>
 
   <div class="form-group">

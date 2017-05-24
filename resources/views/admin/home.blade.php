@@ -10,6 +10,8 @@
                 <div class="panel-body">
                     @if(!Auth::user()->updated_details)
                         @include('admin.updateForm')
+                    @else
+                        <a href="{{route('projects.index')}}">Projects</a>
                     @endif
                 </div>
             </div>

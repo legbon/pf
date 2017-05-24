@@ -59,9 +59,10 @@ class ProjectController extends Controller
         $helper = new ProjectHelper();
         $project = $helper->createProject($data, new ProjectEloquentRepository);
         
-        if(!$project['ok']) {
-            $msg = $project['err']['msg'];
-            $req->session()->flash('admin_status', $msg);
+        if($project) {
+            return $project;
+            $msg = 'Something went wrong with project creation.';
+            $request->session()->flash('admin_status', $msg);
             return Redirect::back();
         }
 

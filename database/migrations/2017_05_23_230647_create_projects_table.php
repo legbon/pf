@@ -24,6 +24,13 @@ class CreateProjectsTable extends Migration
             $table->string('live_url')->nullable();
             $table->string('source_url')->nullable();
 
+
+
+            $table->boolean('deleted')->default(false);
+
+            $table->dateTime('began')->nullable();
+            $table->dateTime('ended')->nullable();
+
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

@@ -21,4 +21,11 @@ class ProjectEloquentRepository implements \App\Legbon\Portfolio\Project\Project
 		$project->update();
 		return $project;
 	}
+
+	public function delete($id) {
+		$project = Project::find($id);
+		$project->deleted = true;
+		$project->update();
+		return $project;
+	}
 }

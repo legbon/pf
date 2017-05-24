@@ -26,6 +26,10 @@ class ProjectHelper {
 	public function update($data, \App\Legbon\Portfolio\Project\ProjectRepositoryInterface $repo) {
 		return $repo->update($data['id'], array_except($data, ['id']));
 	}
+
+	public function delete($id, \App\Legbon\Portfolio\Project\ProjectRepositoryInterface $repo) {
+		return $repo->delete($id);
+	}
 }
 
 ?>

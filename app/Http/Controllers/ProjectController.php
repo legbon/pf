@@ -31,7 +31,8 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return view('projects.index', ['projects' => Project::all()]);
+        $projects = Project::where('deleted', false)->get();
+        return view('projects.index', ['projects' => $projects]);
     }
 
     /**
@@ -130,9 +131,14 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project, Request $request)
     {
         //
-        return "Toggle the delete flag here. Or turn on soft delete.";
+        
+        $helper = new ProjectHelper();
+        $project = $helper->delete($project->id, new ProjectEloquentRepository);
+
+        $request->session()->flash('admin_status', "Successfully deleted project ". $project->title ."!");
+        return Redirect::route('projects.index');
     }
 }

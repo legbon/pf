@@ -11,4 +11,14 @@ class ProjectEloquentRepository implements \App\Legbon\Portfolio\Project\Project
 	public function save($data) {
 		return Project::create($data);
 	}
+
+	public function update($id, $data) {
+		$project = Project::find($id);
+		if(!$project) {
+			return false;
+		}
+		$project->fill($data);
+		$project->update();
+		return $project;
+	}
 }

@@ -76,7 +76,7 @@
                 </div>
             </div>
         </nav>
-
+        @include('admin.alert')
         @yield('content')
     </div>
 

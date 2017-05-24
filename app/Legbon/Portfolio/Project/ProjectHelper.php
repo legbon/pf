@@ -19,6 +19,13 @@ class ProjectHelper {
 		return $this->save($this->processProject($data), $repo);
 	}
 
+	public function updateProject($data, \App\Legbon\Portfolio\Project\ProjectRepositoryInterface $repo) {
+		return $this->update($this->processProject($data), $repo);
+	}
+
+	public function update($data, \App\Legbon\Portfolio\Project\ProjectRepositoryInterface $repo) {
+		return $repo->update($data['id'], array_except($data, ['id']));
+	}
 }
 
 ?>

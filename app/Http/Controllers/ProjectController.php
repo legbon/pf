@@ -93,6 +93,7 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
+        return view('projects.edit', ['project' => $project]);
     }
 
     /**
@@ -105,6 +106,19 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         //
+        $data = $request->all();
+        $data['id'] = $project->id;
+        $helper = new ProjectHelper();
+        $project = $helper->updateProject($data, new ProjectEloquentRepository);
+        
+        if(!$project) {
+            $msg = 'Something went wrong with the project update.';
+            $request->session()->flash('admin_status', $msg);
+            return Redirect::back();
+        }
+
+        $request->session()->flash('admin_status', "Successfully updated project!");
+        return Redirect::route('projects.show', ['slug' => $project->slug]);
     }
 
     /**

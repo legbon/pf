@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
 use App\Project;
 use Illuminate\Http\Request;
 
+use App\Legbon\Repositories\ProjectEloquentRepository;
+use App\Legbon\Portfolio\Project\ProjectHelper;
+use App\Legbon\Portfolio\Project\ProjectRepositoryInterface;
+
 class ProjectController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +31,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        return Project::all();
     }
 
     /**
@@ -25,6 +42,7 @@ class ProjectController extends Controller
     public function create()
     {
         //
+        return view('projects.create');
     }
 
     /**
@@ -36,6 +54,20 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->all();
+        $data['user_id'] = \Auth::id();
+        $helper = new ProjectHelper();
+        $project = $helper->createProject($data, new ProjectEloquentRepository);
+        
+        if(!$project['ok']) {
+            $msg = $project['err']['msg'];
+            $req->session()->flash('admin_status', $msg);
+            return Redirect::back();
+        }
+
+
+        return Redirect::route('projects.show', ['slug' => $project->slug]);
+
     }
 
     /**
@@ -44,9 +76,12 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($slug)
     {
         //
+        $project = Project::where('slug', $slug)->first();
+
+        return $project;
     }
 
     /**

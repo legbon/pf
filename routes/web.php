@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('projects', 'ProjectController');
 
 Route::group(['prefix' => 'admin'], function () {
 	Route::get('/', function() {
@@ -24,6 +23,10 @@ Route::group(['prefix' => 'admin'], function () {
 
   Auth::routes();
 
+	Route::resource('projects', 'ProjectController', ['except' => [
+    'show'
+	]]);
+  Route::get('projects/{slug}', 'ProjectController@show')->name('projects.show');
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

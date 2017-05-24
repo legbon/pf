@@ -31,7 +31,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return Project::all();
+        return view('projects.index', ['projects' => Project::all()]);
     }
 
     /**
@@ -59,15 +59,16 @@ class ProjectController extends Controller
         $helper = new ProjectHelper();
         $project = $helper->createProject($data, new ProjectEloquentRepository);
         
-        if($project) {
-            return $project;
+        if(!$project) {
             $msg = 'Something went wrong with project creation.';
             $request->session()->flash('admin_status', $msg);
             return Redirect::back();
         }
 
-
-        return Redirect::route('projects.show', ['slug' => $project->slug]);
+        $msg = $project->title." successfully created.";
+        $request->session()->flash('admin_status', $msg);
+        // return Redirect::route('projects.show', ['slug' => $project->slug]);
+        return Redirect::route('projects.index');
 
     }
 
@@ -119,7 +120,8 @@ class ProjectController extends Controller
         }
 
         $request->session()->flash('admin_status', "Successfully updated project!");
-        return Redirect::route('projects.show', ['slug' => $project->slug]);
+        //return Redirect::route('projects.show', ['slug' => $project->slug]);
+        return Redirect::route('projects.index');
     }
 
     /**
@@ -131,5 +133,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+        return "Toggle the delete flag here. Or turn on soft delete.";
     }
 }

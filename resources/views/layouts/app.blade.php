@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('styles')
+
+    <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

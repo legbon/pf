@@ -43,11 +43,11 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         //
-        $repo = new PlanHelper();
+        $helper = new PlanHelper();
         $data = $request->all();
         $data['user_id'] = \Auth::id();
 
-        $data = $repo->processPlan($data);
+        $data = $helper->processPlan($data);
 
         if($data == false) {
             $msg = 'Processing plan failed. Please check your input.';
@@ -56,7 +56,7 @@ class PlanController extends Controller
             return Redirect::back();
         }
 
-        $plan = $repo->save($data, new PlanEloquentRepository);
+        $plan = $helper->save($data, new PlanEloquentRepository);
         
         if($plan == false) {
             $msg = 'Something went wrong with the plan save function.';
@@ -91,6 +91,7 @@ class PlanController extends Controller
     public function edit(Plan $plan)
     {
         //
+        return view('plans.edit', ['plan' => $plan]);
     }
 
     /**
@@ -103,6 +104,32 @@ class PlanController extends Controller
     public function update(Request $request, Plan $plan)
     {
         //
+        $helper = new PlanHelper();
+        $data = $request->all();
+        $data['user_id'] = \Auth::id();
+
+        $data = $helper->processPlan($data);
+
+        if($data == false) {
+            $msg = 'Processing plan failed. Please check your input.';
+            $request->session()->flash('admin_status', $msg);
+
+            return Redirect::back();
+        }
+
+        $plan = $helper->update($plan->id, $data, new PlanEloquentRepository);
+        
+        if($plan == false) {
+            $msg = 'Something went wrong with the plan update function.';
+            $request->session()->flash('admin_status', $msg);
+            return Redirect::back();
+        }
+
+
+        $msg = 'Successfully updated plan '. $plan['title'] .'.';
+        $request->session()->flash('admin_status', $msg);
+
+        return Redirect::route('plans.index');
     }
 
     /**
@@ -111,8 +138,20 @@ class PlanController extends Controller
      * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plan $plan)
+    public function destroy(Plan $plan, Request $request)
     {
         //
+        $helper = new PlanHelper();
+        $data = $helper->delete($plan->id, new PlanEloquentRepository);
+        if($data == false) {
+            $msg = 'Something went wrong with the plan delete function.';
+            $request->session()->flash('admin_status', $msg);
+            return Redirect::back();
+        }
+
+        $msg = 'Successfully deleted plan '. $plan['title'] .'.';
+        $request->session()->flash('admin_status', $msg);
+
+        return Redirect::route('plans.index');
     }
 }

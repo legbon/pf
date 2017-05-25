@@ -38,6 +38,14 @@ class PlanHelper {
 		return $repo->save($data);
 	}
 
+	public function update($id, $data, PlanRepositoryInterface $repo) {
+		return $repo->update($id, $data);
+	}
+
+	public function delete($id, PlanRepositoryInterface $repo) {
+		return $repo->delete($id);
+	}
+
 }
 
 ?>

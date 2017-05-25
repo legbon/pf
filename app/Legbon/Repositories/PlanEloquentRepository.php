@@ -11,4 +11,23 @@ class PlanEloquentRepository implements \App\Legbon\Portfolio\Plan\PlanRepositor
 	public function save($data) {
 		return Plan::create($data);
 	}
+
+	public function update($id, $data) {
+		$plan = Plan::find($id);
+		if(!$plan) {
+			return false;
+		}
+
+		$plan->fill($data);
+		return $plan->update();
+	}
+
+	public function delete($id) {
+		$plan = Plan::find($id);
+		if(!$plan) {
+			return false;
+		}
+		$plan->deleted = true;
+		return $plan->update();		
+	}
 }

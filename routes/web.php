@@ -27,7 +27,11 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::resource('projects', 'ProjectController', ['except' => [
     'show'
 	]]);
+
+
   Route::get('projects/{slug}', 'ProjectController@show')->name('projects.show');
+	
+	Route::resource('plans', 'PlanController');
 
 	Route::get('/home', 'HomeController@index')->name('home');
 

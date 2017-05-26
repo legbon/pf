@@ -20,6 +20,7 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Status</th>
                                     <th>Links</th>
                                     <th>Began/Ended</th>
                                     <th>Options</th>
@@ -30,6 +31,7 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Status</th>
                                     <th>Links</th>
                                     <th>Began/Ended</th>
                                     <th>Options</th>
@@ -43,6 +45,7 @@
                                     </a></td>
                                     <td>{{$p->title}}</td>
                                     <td>{{str_limit($p->description, 40)}}</td>
+                                    <td>{{$p->status}}</td>
                                     <td>[<a href="{{$p->source_url}}">S</a>][<a href="{{$p->live_url}}">L</a>]</td>
                                     <td>{{$p->began ? $p->began->toFormattedDateString() : 'None Set'}} - {{$p->ended ? $p->ended->toFormattedDateString() : 'None Set'}}</td>
                                     <td>

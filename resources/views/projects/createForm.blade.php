@@ -15,6 +15,17 @@
   </div>
 
   <div class="form-group">
+    <label for="status">Status</label>
+    @foreach($statuses as $status)
+      @if($statuses[0] == $status)
+        <label class="radio-inline"><input type="radio" name="status" checked="true" value="{{$status}}">{{$status}}</label>
+      @else
+        <label class="radio-inline"><input type="radio" name="status" value="{{$status}}">{{$status}}</label>
+      @endif
+    @endforeach
+  </div>
+
+  <div class="form-group">
     <label for="live_url">Live URL</label>
     <input type="url" class="form-control" id="live_url" name="live_url" placeholder="http://www.google.com">
   </div>

@@ -43,7 +43,9 @@ class ProjectController extends Controller
     public function create()
     {
         //
-        return view('projects.create');
+        $statuses = config('site')['PROJECT_STATUSES'];
+
+        return view('projects.create', ['statuses' => $statuses]);
     }
 
     /**
@@ -109,7 +111,10 @@ class ProjectController extends Controller
             $ended = $project->ended->format('m/d/Y');
         }
         //$project->ended = $project->ended ? $project->ended->format('m/d/Y') : '';
-        return view('projects.edit', ['project' => $project, 'began' => $began, 'ended' => $ended]);
+
+        $statuses = config('site')['PROJECT_STATUSES'];
+
+        return view('projects.edit', ['project' => $project, 'began' => $began, 'ended' => $ended, 'statuses' => $statuses]);
     }
 
     /**

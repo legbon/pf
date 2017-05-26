@@ -32,6 +32,8 @@ class CreateProjectsTable extends Migration
             $table->dateTime('began')->nullable();
             $table->dateTime('ended')->nullable();
 
+            $table->enum('status', config('site')['PROJECT_STATUSES']);
+
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

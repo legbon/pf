@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
+Route::group(['prefix' => 'api'], function() {
+	Route::get('/all', 'ApiController@index');
+});
 
 Route::group(['prefix' => 'admin'], function () {
 	

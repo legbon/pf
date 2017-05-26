@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration
             
             $table->string('slug')->unique();
             $table->string('title')->unique();
-            $table->string('description');
+            $table->string('description', 255);
             $table->string('live_url')->nullable();
             $table->string('source_url')->nullable();
 

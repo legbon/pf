@@ -18,11 +18,11 @@ class ApiController extends Controller
     public function index()
     {
     	$projects = Project::where('deleted', false)->get();
-    	$plans = Plan::where('deleted', false)->get();
+//    	$plans = Plan::where('deleted', false)->get();
 
     	$data = [
     		'projects' => $projects,
-    		'plans' => $plans
+  //  		'plans' => $plans
     	];
       return $data;
     }
